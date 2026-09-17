@@ -1,19 +1,21 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '@entities/usuario/Usuario';
 import { Observable } from 'rxjs/internal/Observable';
+import { ApiClient } from '@shared/api';
 
 @Injectable({providedIn: 'root'})
 
 export class UsuarioService {
 
+  private readonly apiClient = inject(ApiClient);
   private apiUrl = 'http://localhost:8080/api/usuarios';
 
   constructor(private http: HttpClient) {}
 
   //pedir los users a spring
   getUsuarios(): Observable<Usuario[]> {
-    return this.http.get<Usuario[]>(this.apiUrl);
+    return this.apiClient.get<Usuario[]>('/users');
   }
 
   getUsuario(id: number): Observable<Usuario> {
