@@ -1,0 +1,38 @@
+<h1>Tareas</h1>
+
+<button>Crear nueva tarea</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Completada</th>
+            <th>Fecha límite</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (t of tareas; track t.id) {
+        <tr>
+            <td>{{ t.titulo }}</td>
+            <td>{{ t.descripcion }}</td>
+            <td>
+                @if (t.completada) {
+                Sí
+                } @else {
+                No
+                } </td>
+            <td>
+                {{ t.fechaLimite }}
+            </td>
+
+            <td>
+                <button>Editar</button>
+                <button (click)="eliminarTarea(t.id)">Eliminar</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
