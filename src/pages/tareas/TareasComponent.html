@@ -14,7 +14,7 @@
     </thead>
 
     <tbody>
-        @for (t of tareas; track t.id) {
+        @for (t of tareas(); track t.id) {
         <tr>
             <td>{{ t.titulo }}</td>
             <td>{{ t.descripcion }}</td>

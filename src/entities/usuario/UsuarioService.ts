@@ -5,32 +5,26 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ApiClient } from '@shared/api';
 
 @Injectable({providedIn: 'root'})
-
 export class UsuarioService {
-
   private readonly apiClient = inject(ApiClient);
-  private apiUrl = 'http://localhost:8080/api/usuarios';
 
-  constructor(private http: HttpClient) {}
-
-  //pedir los users a spring
   getUsuarios(): Observable<Usuario[]> {
     return this.apiClient.get<Usuario[]>('/usuarios');
   }
 
-  getUsuario(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+  getUsuario(email: string): Observable<Usuario> {
+    return this.apiClient.get<Usuario>(`/usuarios/${email}`);
   }
 
   crearUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.http.post<Usuario>(this.apiUrl, usuario);
+    return this.apiClient.post<Usuario>('/usuarios', usuario);
   }
 
-  actualizarUsuario(id: number, usuario: Usuario): Observable<Usuario> {
-    return this.http.put<Usuario>(`${this.apiUrl}/${id}`, usuario);
+  actualizarUsuario(email: string, usuario: Usuario): Observable<Usuario> {
+    return this.apiClient.put<Usuario>(`/usuarios/${email}`, usuario);
   }
 
-  eliminarUsuario(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  eliminarUsuario(email: string): Observable<void> {
+    return this.apiClient.delete<void>(`/usuarios/${email}`);
   }
 }
