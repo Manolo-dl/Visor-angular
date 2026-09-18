@@ -1,38 +1,52 @@
-<h1>Tareas</h1>
+<div class="mx-auto max-w-5xl px-4 py-8">
+    <div class="mb-6 flex items-center justify-between">
+        <h1 class="text-2xl font-semibold text-gray-900">Tareas</h1>
+        <button
+            class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-500 transition-colors">
+            Crear nueva tarea
+        </button>
+    </div>
 
-<button>Crear nueva tarea</button>
+    <div class="overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Título</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Descripción</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Completada</th>
+                    <th class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Fecha límite</th>
+                    <th class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-500">Acciones</th>
+                </tr>
+            </thead>
 
-<table>
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Completada</th>
-            <th>Fecha límite</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
+            <tbody class="divide-y divide-gray-100 bg-white">
+                @for (t of tareas(); track t.id) {
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-3 text-sm font-medium text-gray-900">{{ t.titulo }}</td>
+                    <td class="px-4 py-3 text-sm text-gray-600">{{ t.descripcion }}</td>
+                    <td class="px-4 py-3 text-sm">
+                        @if (t.completada) {
+                        <span class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">Sí</span>
+                        } @else {
+                        <span class="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-700">No</span>
+                        }
+                    </td>
+                    <td class="px-4 py-3 text-sm text-gray-600">
+                        {{ t.fechaLimite }}
+                    </td>
 
-    <tbody>
-        @for (t of tareas(); track t.id) {
-        <tr>
-            <td>{{ t.titulo }}</td>
-            <td>{{ t.descripcion }}</td>
-            <td>
-                @if (t.completada) {
-                Sí
-                } @else {
-                No
-                } </td>
-            <td>
-                {{ t.fechaLimite }}
-            </td>
-
-            <td>
-                <button>Editar</button>
-                <button (click)="eliminarTarea(t.id)">Eliminar</button>
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+                    <td class="px-4 py-3 text-right text-sm">
+                        <button class="mr-2 rounded-md px-2 py-1 font-medium text-indigo-600 hover:bg-indigo-50 transition-colors">Editar</button>
+                        <button (click)="eliminarTarea(t.id)"
+                            class="rounded-md px-2 py-1 font-medium text-red-600 hover:bg-red-50 transition-colors">Eliminar</button>
+                    </td>
+                </tr>
+                } @empty {
+                <tr>
+                    <td colspan="5" class="px-4 py-8 text-center text-sm text-gray-500">No hay tareas todavía.</td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
