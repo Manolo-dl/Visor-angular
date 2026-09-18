@@ -15,7 +15,7 @@ export class UsuarioService {
 
   //pedir los users a spring
   getUsuarios(): Observable<Usuario[]> {
-    return this.apiClient.get<Usuario[]>('/users');
+    return this.apiClient.get<Usuario[]>('/usuarios');
   }
 
   getUsuario(id: number): Observable<Usuario> {

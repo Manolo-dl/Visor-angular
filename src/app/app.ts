@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { UsuarioService, type Usuario } from '@entities/usuario';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   imports: [RouterOutlet],
@@ -7,6 +9,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.css',
   templateUrl: './app.html',
 })
-export class App {
-  protected readonly title = signal('visor-angular');
-}
+export class App {}

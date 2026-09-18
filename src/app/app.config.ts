@@ -11,7 +11,7 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     {
       provide: API_BASE_URL,
-      useValue: 'localhost:8080/api'
+      useValue: 'http://localhost:8080/api'
     }
   ],
 };
