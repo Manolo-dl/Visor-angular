@@ -14,7 +14,6 @@ export class ModalUsuario {
   constructor(private fb: FormBuilder) {
     effect(() => {
       const usuario = this.store.seleccionado();
-      const creando = this.store.creando();
       if (usuario) {
         this.form = this.fb.group({
           nombre: [usuario.nombre, Validators.required],
@@ -32,7 +31,7 @@ export class ModalUsuario {
     if (this.store.creando()) {
       await this.store.crearUsuario({ nombre: datos.nombre, email: datos.email });
     } else {
-      await this.store.actualizarUsuario(datos);
+      await this.store.actualizarUsuario(usuario.email, datos);
     }
     this.cerrar();
   }

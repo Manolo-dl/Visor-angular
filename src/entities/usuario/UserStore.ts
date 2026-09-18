@@ -40,11 +40,11 @@ export const UserStore = signalStore(
             }
         },
 
-        async actualizarUsuario(usuario: Usuario): Promise<void> {
+        async actualizarUsuario(email: string, usuario: Usuario): Promise<void> {
             try {
-                const actualizado = await lastValueFrom(usuarioService.actualizarUsuario(usuario));
+                await lastValueFrom(usuarioService.actualizarUsuario(email, usuario));
                 patchState(store, {
-                    users: store.users().map(u => u.email === actualizado.email ? actualizado : u),
+                    users: store.users().map(u => u.email === email ? usuario : u),
                     seleccionado: null,
                 });
             } catch (error) {

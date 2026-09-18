@@ -20,8 +20,8 @@ export class UsuarioService {
     return this.apiClient.post<Usuario>('/usuarios', usuario);
   }
 
-  actualizarUsuario(usuario: Usuario): Observable<Usuario> {
-    return this.apiClient.put<Usuario>(`/usuarios`, usuario);
+  actualizarUsuario(email: string, usuario: Usuario): Observable<Usuario> {
+    return this.apiClient.put<Usuario>(`/usuarios/${email}`, usuario);
   }
 
   eliminarUsuario(email: string): Observable<void> {
