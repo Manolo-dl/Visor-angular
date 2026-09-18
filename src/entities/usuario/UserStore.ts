@@ -6,12 +6,14 @@ import { UsuarioService } from "./UsuarioService";
 
 interface UserState {
     users: Usuario[],
-    seleccionado: Usuario | null
+    seleccionado: Usuario | null,
+    creando: boolean
 }
 
 const initialState: UserState = {
     users: [],
-    seleccionado: null
+    seleccionado: null,
+    creando: false
 };
 
 export const UserStore = signalStore(
@@ -19,7 +21,7 @@ export const UserStore = signalStore(
     withState(initialState),
 
     withComputed((store) => ({
-        modalAbierto: computed(() => store.seleccionado() !== null),
+        modalAbierto: computed(() => store.seleccionado() !== null || store.creando()),
     })),
 
     withMethods((store, usuarioService= inject(UsuarioService)) => ({
@@ -50,16 +52,31 @@ export const UserStore = signalStore(
             }
         },
 
+        //----sin id porq se genera ya automáticamente
+        async crearUsuario(usuario: Omit<Usuario, 'id' | 'tareas'>): Promise<void> {
+            try {
+                const nuevo = await lastValueFrom(usuarioService.crearUsuario(usuario as Usuario));
+                patchState(store, { users: [...store.users(), nuevo] });
+            } catch (error) {
+                console.error('No se ha podido crear el usuario: ', error);
+                throw error;
+            }
+        },
+
         seleccionarUsuario(usuario: Usuario): void {
             patchState(store, { seleccionado: usuario });
         },
 
         cerrarEdicion(): void {
-            patchState(store, { seleccionado: null });
+            patchState(store, { seleccionado: null, creando: false });
+        },
+
+        abrirCrear(): void {
+            const nuevo: Usuario = { id: 0, nombre: '', email: '', tareas: [] };
+            patchState(store, { seleccionado: nuevo, creando: true });
         }
-    }))
-
-
+    })
+)
 )
 
 
