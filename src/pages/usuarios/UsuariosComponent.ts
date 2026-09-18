@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
 import { UserStore } from '@entities/usuario/UserStore';
-import { Usuario } from '@entities/usuario/Usuario';
-import { UsuarioService } from '@entities/usuario/UsuarioService';
-import { lastValueFrom } from 'rxjs';
+import { ModalUsuario } from '@features/usuario/modal-usuario';
 
 @Component({
     selector: 'app-usuarios',
-    templateUrl: './UsuariosComponent.html'
+    templateUrl: './UsuariosComponent.html',
+    imports: [ModalUsuario]
 })
 export class UsuariosPageComponent {
 

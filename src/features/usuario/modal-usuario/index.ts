@@ -1,0 +1,1 @@
+export { ModalUsuario } from './modal-usuario';

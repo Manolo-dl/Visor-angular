@@ -1,0 +1,38 @@
+
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    (click)="cerrar()">
+<div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg"
+        (click)="$event.stopPropagation()">
+
+    <div class="mb-4 flex items-center justify-between">
+    <h2 class="text-lg font-semibold">Editar usuario</h2>
+    <button (click)="cerrar()" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
+
+    <form [formGroup]="form" class="space-y-4">
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Nombre</label>
+        <input type="text" formControlName="nombre"
+                class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none">
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" formControlName="email"
+                class="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none">
+    </div>
+    </form>
+
+    <div class="mt-6 flex justify-end gap-2">
+    <button (click)="cerrar()"
+            class="rounded-md border border-gray-300 px-4 py-2 text-sm hover:bg-gray-50">
+        Cancelar
+    </button>
+    <button (click)="guardar()"
+            class="rounded-md bg-blue-600 px-4 py-2 text-sm text-white hover:bg-blue-700">
+        Guardar
+    </button>
+    </div>
+
+</div>
+</div>
